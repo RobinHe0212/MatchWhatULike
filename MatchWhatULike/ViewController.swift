@@ -26,7 +26,10 @@ class ViewController: UIViewController {
     fileprivate func setUpStackViews() {
         let topStackView = TopStackView(frame: .zero)
         let bottomStackView = BottomStackView(frame: .zero)
-        let middleView = CartView()
+        let middleView = UIView()
+        let cartV = CartView()
+        middleView.addSubview(cartV)
+        cartV.fillSuperview()
         
         let overallStackView = UIStackView(arrangedSubviews: [
             topStackView,
