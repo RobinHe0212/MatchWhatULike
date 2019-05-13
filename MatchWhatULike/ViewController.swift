@@ -10,9 +10,36 @@ import UIKit
 
 class ViewController: UIViewController {
 
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.view.backgroundColor = .white
+        setUpStackViews()
+        
+        
+
+    }
+    
+    
+    
+    fileprivate func setUpStackViews() {
+        let topStackView = TopStackView(frame: .zero)
+        let bottomStackView = BottomStackView(frame: .zero)
+        let middleView = CartView()
+        
+        let overallStackView = UIStackView(arrangedSubviews: [
+            topStackView,
+            middleView,
+            bottomStackView
+            
+            ])
+        overallStackView.axis = .vertical
+        
+        self.view.addSubview(overallStackView)
+        overallStackView.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.safeAreaLayoutGuide.bottomAnchor, trailing: self.view.trailingAnchor)
+        overallStackView.isLayoutMarginsRelativeArrangement = true
+        overallStackView.layoutMargins = .init(top: 0, left: 12, bottom: 0, right: 12)
     }
 
 
