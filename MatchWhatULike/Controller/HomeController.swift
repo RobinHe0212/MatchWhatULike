@@ -29,11 +29,11 @@ class HomeController: UIViewController {
     let cardModelStacks : [CardViewModel] = {
         
         let viewModel = [
-            UserModel(userImage: "lady1", userName: "Jane", userAge: "18", userProfession: "Teacher"),
-            UserModel(userImage: "lady2", userName: "Yuxian Liu", userAge: "24", userProfession: "Soldier"),
+            UserModel(userImages: ["lady1"], userName: "Jane", userAge: "18", userProfession: "Teacher"),
+            UserModel(userImages: ["lady2"], userName: "Yuxian Liu", userAge: "24", userProfession: "Soldier"),
             AdsModel(adsImage: "sneaker", adsTitle: "SneakerCon App", adsSub: "Be the hypebeast"),
-            UserModel(userImage: "lady3", userName: "Joggie", userAge: "20", userProfession: "Student"),
-            UserModel(userImage: "lady4", userName: "Lucy", userAge: "21", userProfession: "Graduate")
+            UserModel(userImages: ["lady3"], userName: "Joggie", userAge: "20", userProfession: "Student"),
+            UserModel(userImages: ["lady4","lady2","lady3"], userName: "Lucy", userAge: "21", userProfession: "Graduate")
         
         ] as [TransferToCardViewModel]
         

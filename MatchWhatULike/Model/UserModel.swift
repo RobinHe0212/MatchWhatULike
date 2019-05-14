@@ -17,7 +17,7 @@ protocol TransferToCardViewModel {
 struct UserModel : TransferToCardViewModel{
     
     
-    let userImage : String
+    let userImages : [String]
     let userName : String
     let userAge : String
     let userProfession : String
@@ -31,7 +31,7 @@ struct UserModel : TransferToCardViewModel{
         attribute.append(NSMutableAttributedString(string: "\n\(userProfession)", attributes: [NSMutableAttributedString.Key.font : UIFont.systemFont(ofSize: 15)]))
         
         
-        return CardViewModel(alignment: .left, wordAttribute: attribute, bgImage: userImage)
+        return CardViewModel(alignment: .left, wordAttribute: attribute, bgImages: userImages)
     }
     
   
