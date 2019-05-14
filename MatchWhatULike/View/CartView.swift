@@ -10,14 +10,30 @@ import UIKit
 
 class CartView: UIView {
 
+    
+    var cardsContent : CardViewModel!{
+        
+        didSet{
+            
+            image.image = UIImage(named: cardsContent.bgImage)
+            infoLabel.attributedText = cardsContent.wordAttribute
+            infoLabel.textAlignment = cardsContent.alignment
+        }
+        
+        
+    }
+    
     let image : UIImageView = {
         let img = UIImageView()
-        img.image = #imageLiteral(resourceName: "lady5c")
         img.contentMode = .scaleAspectFill
         return img
         
         
     }()
+    
+    let infoLabel = UILabel()
+    
+    
     // Configuration
    fileprivate let threshold : CGFloat = 100
 
@@ -28,6 +44,13 @@ class CartView: UIView {
         self.clipsToBounds = true
         self.addSubview(image)
         image.fillSuperview()
+        image.addSubview(infoLabel)
+        infoLabel.textColor = .white
+        infoLabel.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: 0, left: 16, bottom: 16, right: 16))
+//        infoLabel.font = UIFont.systemFont(ofSize: 34, weight: .heavy)
+        infoLabel.numberOfLines = 0
+        
+        
         
         let pan = UIPanGestureRecognizer(target: self, action: #selector(panCard))
         self.addGestureRecognizer(pan)
@@ -70,20 +93,15 @@ class CartView: UIView {
     fileprivate func endSwipeCard(_ gesture:UIPanGestureRecognizer){
         
         let gestureABS = gesture.translation(in: nil).x
+        let direction : CGFloat = gestureABS > 0 ? 1 : -1
         let dismissCard = abs(gestureABS) > threshold
         
             UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
                 
                 if dismissCard {
-                    if gestureABS > 0 {
-                        self.frame = .init(x: 1000, y: 0, width: self.frame.width, height: self.frame.height)
-
-                    }else {
-                        self.frame = .init(x: -1000, y: 0, width: self.frame.width, height: self.frame.height)
-
-                    }
-                    
-
+                   
+                        self.frame = .init(x: 1000*direction, y: 0, width: self.frame.width, height: self.frame.height)
+                
                 }else{
                     self.transform = .identity
                     
@@ -91,7 +109,10 @@ class CartView: UIView {
                 
             }) { (_) in
                 self.transform = .identity
-                self.frame = .init(x: 0, y: 0, width: self.superview!.frame.width, height: self.superview!.frame.height)
+                if dismissCard{
+                    self.removeFromSuperview()
+
+                }
 
             }
        
