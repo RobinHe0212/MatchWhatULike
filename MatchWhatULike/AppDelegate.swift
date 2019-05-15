@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         window?.makeKeyAndVisible()
-        window?.rootViewController = HomeController()
+        window?.rootViewController = SettingProfileViewController()
         return true
     }
 

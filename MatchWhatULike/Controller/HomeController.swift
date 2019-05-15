@@ -75,6 +75,14 @@ class HomeController: UIViewController {
         overallStackView.isLayoutMarginsRelativeArrangement = true
         overallStackView.layoutMargins = .init(top: 0, left: 12, bottom: 0, right: 12)
         overallStackView.bringSubviewToFront(middleView)
+        
+        topStackView.leftBtn.addTarget(self, action: #selector(tapSettingProfile), for: .touchUpInside)
+    }
+    
+    @objc func tapSettingProfile(){
+        
+        self.present(SettingProfileViewController(),animated: true)
+        
     }
 
 
