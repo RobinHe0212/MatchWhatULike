@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import JGProgressHUD
 
 class SettingProfileViewController: UIViewController {
 
@@ -98,7 +100,7 @@ class SettingProfileViewController: UIViewController {
         btn.backgroundColor = .lightGray
         btn.layer.cornerRadius = 20
         btn.setTitleColor(#colorLiteral(red: 0.3616387844, green: 0.3566553593, blue: 0.3610489368, alpha: 1), for: .normal)
-
+        btn.addTarget(self, action: #selector(tapRegister), for: .touchUpInside)
         self.btnHeightContraint = btn.heightAnchor.constraint(equalToConstant: 45)
         self.btnHeightContraint.isActive = true
         return btn
@@ -106,6 +108,34 @@ class SettingProfileViewController: UIViewController {
         
         
     }()
+    
+    
+    @objc func tapRegister(){
+        
+        guard let email = emailTextField.text else { return}
+        guard let password = passwordTextField.text else {return}
+        tapDismissKeyboard()
+        
+        Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
+            if err != nil {
+                print("error", err)
+                self.showProgressHud(err: err)
+                return
+            }
+            
+            print(result?.user.uid)
+        }
+        
+    }
+    
+    fileprivate func showProgressHud(err:Error?){
+        guard let err = err else {return}
+        let progressHud = JGProgressHUD(style: .dark)
+        progressHud.textLabel.text = "Error"
+        progressHud.detailTextLabel.text = err.localizedDescription
+        progressHud.dismiss(afterDelay: 3)
+        progressHud.show(in: self.view, animated: true)
+    }
     
     var btnHeightContraint : NSLayoutConstraint!
     
@@ -182,13 +212,14 @@ class SettingProfileViewController: UIViewController {
     
     fileprivate func setUpTapGesture() {
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapDismissKeyboard)))
+        
     }
     
     fileprivate func setUpFormValidObserver(){
         
         
         registerViewModel.isFormValidObserver = { [unowned self] (isValid) in
-            print(isValid)
+           
             self.registerBtn.isEnabled = isValid
             self.registerBtn.backgroundColor = isValid ?  #colorLiteral(red: 0.8131607771, green: 0.09644565731, blue: 0.3356440663, alpha: 1) : .lightGray
             if isValid {
@@ -207,6 +238,11 @@ class SettingProfileViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardHandler), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDismiss), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self) // avoid having a retain circle
     }
     
     @objc func keyboardHandler(notification : Notification ){

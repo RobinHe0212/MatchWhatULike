@@ -13,13 +13,9 @@ class RegisterViewModel {
     var name : String?{
         didSet{
             checkFormValid()
-            
         }
-        
-        
     }
-    
-    
+
     var email : String?{didSet{
         checkFormValid()
         
