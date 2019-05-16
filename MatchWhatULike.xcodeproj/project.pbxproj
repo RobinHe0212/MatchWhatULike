@@ -21,6 +21,7 @@
 		0FB758DE228B165700AE9862 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB758DD228B165700AE9862 /* CardViewModel.swift */; };
 		0FB758E0228C9F1C00AE9862 /* SettingProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB758DF228C9F1C00AE9862 /* SettingProfileViewController.swift */; };
 		0FB758E2228CA2F400AE9862 /* PaddingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB758E1228CA2F400AE9862 /* PaddingTextField.swift */; };
+		0FB758E4228DE8FC00AE9862 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB758E3228DE8FC00AE9862 /* RegisterViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		0FB758DD228B165700AE9862 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		0FB758DF228C9F1C00AE9862 /* SettingProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProfileViewController.swift; sourceTree = "<group>"; };
 		0FB758E1228CA2F400AE9862 /* PaddingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingTextField.swift; sourceTree = "<group>"; };
+		0FB758E3228DE8FC00AE9862 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				0FB758DD228B165700AE9862 /* CardViewModel.swift */,
+				0FB758E3228DE8FC00AE9862 /* RegisterViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				0F6CD2A52289EB410095DBE0 /* BottomStackView.swift in Sources */,
 				0F6CD2902289E7250095DBE0 /* HomeController.swift in Sources */,
 				0F6CD2A32289E9070095DBE0 /* TopStackView.swift in Sources */,
+				0FB758E4228DE8FC00AE9862 /* RegisterViewModel.swift in Sources */,
 				0F6CD28E2289E7250095DBE0 /* AppDelegate.swift in Sources */,
 				0FB758E0228C9F1C00AE9862 /* SettingProfileViewController.swift in Sources */,
 				0F6CD2A02289E8540095DBE0 /* UIView+Layout.swift in Sources */,

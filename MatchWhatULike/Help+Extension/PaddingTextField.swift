@@ -17,13 +17,13 @@ class PaddingTextField: UITextField {
         super.init(frame: .zero)
         layer.cornerRadius = 20
         backgroundColor = .white
-
+       
     }
     
     var padding : CGFloat
     
     override var intrinsicContentSize: CGSize{
-        
+
         return .init(width: 0, height: 45)
     }
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
