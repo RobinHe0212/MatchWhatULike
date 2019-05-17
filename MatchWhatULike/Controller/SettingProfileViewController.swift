@@ -164,7 +164,6 @@ class SettingProfileViewController: UIViewController {
     @objc func tapRegister(){
         
         tapDismissKeyboard()
-//        registerViewModel.bindIsRegistering.value = true
         registerViewModel.handleRegister {[unowned self] (err) in
             if err != nil {
                 self.showProgressHud(err: err)
