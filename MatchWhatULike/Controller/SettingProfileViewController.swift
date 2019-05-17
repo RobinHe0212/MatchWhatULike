@@ -10,6 +10,36 @@ import UIKit
 import Firebase
 import JGProgressHUD
 
+
+extension SettingProfileViewController : UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        
+        
+        
+        if let image = info[.originalImage] as? UIImage{
+            registerViewModel.bindprofileImage.value = image
+//            registerViewModel.profileImage = image
+            
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+   fileprivate func setUpImageObserver(){
+    
+   
+    registerViewModel.bindprofileImage.observer = { [unowned self]
+        (img) in
+        self.selectBtn.setImage(img!.withRenderingMode(.alwaysOriginal), for: .normal)
+
+    }
+    
+    }
+    
+}
+
 class SettingProfileViewController: UIViewController {
 
    
@@ -21,6 +51,7 @@ class SettingProfileViewController: UIViewController {
         setUpKeyboardObserver()
         setUpTapGesture()
         setUpFormValidObserver()
+        setUpImageObserver()
     }
     
     @objc func tapDismissKeyboard(){
@@ -29,17 +60,29 @@ class SettingProfileViewController: UIViewController {
     }
     
     let selectBtn : UIButton = {
-        let btn = UIButton()
+        let btn = UIButton(type: .system)
         btn.setTitle("Select Photo", for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 32, weight: .heavy)
         btn.titleLabel?.textAlignment = .center
         btn.setTitleColor(.black, for: .normal)
         btn.layer.cornerRadius = 12
         btn.backgroundColor = .white
+        btn.clipsToBounds = true
+        btn.contentMode = UIButton.ContentMode.scaleAspectFill
         btn.heightAnchor.constraint(equalToConstant: 350).isActive = true
+        btn.addTarget(self, action: #selector(tapProfileImg), for: .touchUpInside)
         return btn
 
     }()
+    
+    @objc func tapProfileImg(){
+        
+        let imagePikcer = UIImagePickerController()
+        imagePikcer.delegate = self
+        
+        self.present(imagePikcer,animated: true)
+    }
+    
     
     let registerViewModel = RegisterViewModel()
     
@@ -109,26 +152,34 @@ class SettingProfileViewController: UIViewController {
         
     }()
     
+    let registerHud : JGProgressHUD = {
+        let registerHud = JGProgressHUD(style: .dark)
+        registerHud.textLabel.text = "Register"
+        registerHud.dismiss(afterDelay: 3, animated: true)
+        return registerHud
+        
+    }()
     
+    // deliberate code based on registering status
     @objc func tapRegister(){
         
-        guard let email = emailTextField.text else { return}
-        guard let password = passwordTextField.text else {return}
         tapDismissKeyboard()
-        
-        Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
+//        registerViewModel.bindIsRegistering.value = true
+        registerViewModel.handleRegister {[unowned self] (err) in
             if err != nil {
-                print("error", err)
                 self.showProgressHud(err: err)
                 return
             }
-            
-            print(result?.user.uid)
+            print("finish uploading")
         }
+        
+        
+        
         
     }
     
     fileprivate func showProgressHud(err:Error?){
+        registerHud.dismiss(animated: true)
         guard let err = err else {return}
         let progressHud = JGProgressHUD(style: .dark)
         progressHud.textLabel.text = "Error"
@@ -230,6 +281,20 @@ class SettingProfileViewController: UIViewController {
             
             
         }
+        registerViewModel.bindIsRegistering.observer = {
+            [unowned self]
+                (isRegistering) in
+            guard let isRegistering = isRegistering else {return}
+            if isRegistering {
+                self.registerHud.show(in: self.view, animated: true)
+                self.registerHud.textLabel.text = "Register"
+                
+            }else {
+                self.registerHud.dismiss(animated: true)
+            }
+            
+        }
+        
         
     }
     
@@ -242,7 +307,7 @@ class SettingProfileViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self) // avoid having a retain circle
+//        NotificationCenter.default.removeObserver(self) // avoid having a retain circle
     }
     
     @objc func keyboardHandler(notification : Notification ){

@@ -23,6 +23,7 @@
 		0FB758E2228CA2F400AE9862 /* PaddingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB758E1228CA2F400AE9862 /* PaddingTextField.swift */; };
 		0FB758E4228DE8FC00AE9862 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB758E3228DE8FC00AE9862 /* RegisterViewModel.swift */; };
 		0FB758E6228DF8F000AE9862 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FB758E5228DF8F000AE9862 /* GoogleService-Info.plist */; };
+		0FB758E8228E22CC00AE9862 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB758E7228E22CC00AE9862 /* Bindable.swift */; };
 		10CB30E04C534546E65464E4 /* Pods_MatchWhatULike.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B7431478636FEC69233659F /* Pods_MatchWhatULike.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		0FB758E1228CA2F400AE9862 /* PaddingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingTextField.swift; sourceTree = "<group>"; };
 		0FB758E3228DE8FC00AE9862 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		0FB758E5228DF8F000AE9862 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0FB758E7228E22CC00AE9862 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		1B7431478636FEC69233659F /* Pods_MatchWhatULike.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MatchWhatULike.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CF62F5845F4FEBF62F776D6 /* Pods-MatchWhatULike.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatchWhatULike.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MatchWhatULike/Pods-MatchWhatULike.debug.xcconfig"; sourceTree = "<group>"; };
 		C6DA75063E47CFE2EAB80DCE /* Pods-MatchWhatULike.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatchWhatULike.release.xcconfig"; path = "Pods/Target Support Files/Pods-MatchWhatULike/Pods-MatchWhatULike.release.xcconfig"; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			children = (
 				0FB758DD228B165700AE9862 /* CardViewModel.swift */,
 				0FB758E3228DE8FC00AE9862 /* RegisterViewModel.swift */,
+				0FB758E7228E22CC00AE9862 /* Bindable.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FB758E8228E22CC00AE9862 /* Bindable.swift in Sources */,
 				0F6CD2A82289F1590095DBE0 /* CartView.swift in Sources */,
 				0FB758E2228CA2F400AE9862 /* PaddingTextField.swift in Sources */,
 				0FB758D8228B154A00AE9862 /* UserModel.swift in Sources */,
