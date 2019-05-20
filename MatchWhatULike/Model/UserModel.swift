@@ -17,21 +17,33 @@ protocol TransferToCardViewModel {
 struct UserModel : TransferToCardViewModel{
     
     
-    let userImages : [String]
-    let userName : String
-    let userAge : String
-    let userProfession : String
-    
-    
+    var userImages : [String]?
+    var userName : String?
+    var userAge : String?
+    var userProfession : String?
+    var imageUrl1 : String?
+    var uid : String?
+    init(dictionary : [String:Any]){
+        let userName = dictionary["fullname"] as? String
+        let userAge = dictionary["age"] as? String
+        let userProfession = dictionary["profession"] as? String
+         self.imageUrl1 = dictionary["imageUrl1"] as? String
+        self.userImages = [imageUrl1 ?? ""]
+        self.userAge = userAge
+        self.userName = userName
+        self.userProfession = userProfession
+        self.uid = dictionary["uid"] as? String
+    }
     
     func toCardViewModel() -> CardViewModel {
         
-        let attribute =  NSMutableAttributedString(string: userName, attributes: [NSMutableAttributedString.Key.font : UIFont.systemFont(ofSize: 32, weight: .heavy)])
-        attribute.append(NSMutableAttributedString(string: " \(userAge)", attributes: [NSMutableAttributedString.Key.font : UIFont.systemFont(ofSize: 15)]))
-        attribute.append(NSMutableAttributedString(string: "\n\(userProfession)", attributes: [NSMutableAttributedString.Key.font : UIFont.systemFont(ofSize: 15)]))
+        let attribute =  NSMutableAttributedString(string: userName ?? "", attributes: [NSMutableAttributedString.Key.font : UIFont.systemFont(ofSize: 32, weight: .heavy)])
+        
+        attribute.append(NSMutableAttributedString(string: " \(userAge ?? "N\\A")", attributes: [NSMutableAttributedString.Key.font : UIFont.systemFont(ofSize: 15)]))
+        attribute.append(NSMutableAttributedString(string: "\n\(userProfession ?? "Not Available")", attributes: [NSMutableAttributedString.Key.font : UIFont.systemFont(ofSize: 15)]))
         
         
-        return CardViewModel(alignment: .left, wordAttribute: attribute, bgImages: userImages)
+        return CardViewModel(alignment: .left, wordAttribute: attribute, bgImages: [imageUrl1 ?? ""] )
     }
     
   

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import JGProgressHUD
 
 class HomeController: UIViewController {
 
@@ -17,7 +19,7 @@ class HomeController: UIViewController {
         self.view.backgroundColor = .white
         setUpStackViews()
         setUpCards()
-        
+        retriveCardInfoFromFirebase()
 
     }
     
@@ -25,32 +27,57 @@ class HomeController: UIViewController {
     let bottomStackView = BottomStackView(frame: .zero)
     let middleView = UIView()
     
+    var lastUserUid : String?
+    let progressHud = JGProgressHUD(style: .dark)
     
-    let cardModelStacks : [CardViewModel] = {
+    fileprivate func retriveCardInfoFromFirebase(){
         
-        let viewModel = [
-            UserModel(userImages: ["lady1"], userName: "Jane", userAge: "18", userProfession: "Teacher"),
-            UserModel(userImages: ["lady2"], userName: "Yuxian Liu", userAge: "24", userProfession: "Soldier"),
-            AdsModel(adsImage: "sneaker", adsTitle: "SneakerCon App", adsSub: "Be the hypebeast"),
-            UserModel(userImages: ["lady3"], userName: "Joggie", userAge: "20", userProfession: "Student"),
-            UserModel(userImages: ["lady4","lady2","lady3"], userName: "Lucy", userAge: "21", userProfession: "Graduate")
+        progressHud.textLabel.text = "Fetching user"
+        progressHud.show(in: self.view, animated: true)
         
-        ] as [TransferToCardViewModel]
+       let query =  Firestore.firestore().collection("users").order(by: "uid").start(after: [lastUserUid ?? ""]).limit(to: 2)
         
-        let cardModel = viewModel.map({return $0.toCardViewModel()})
-        
-        return cardModel
-        
-    }()
+        query.getDocuments { (snapShot, err) in
+            if err != nil {
+                print("error", err)
+                return
+            }
+            
+            self.progressHud.dismiss(animated: true)
+            snapShot?.documents.forEach({ (snapShot) in
+                let dta = snapShot.data()
+                let user = UserModel(dictionary: dta)
+                print(snapShot.data())
+                self.lastUserUid = user.uid
+                self.cardModelStacks.append(user.toCardViewModel())
+                self.setUpPaginationCards(user: user)
+                
+            })
+           
+        }
+  
+    }
     
+    fileprivate func setUpPaginationCards(user:UserModel){
+        let cartV = CartView(frame: .zero)
+        cartV.cardsContent = user.toCardViewModel()
+        middleView.addSubview(cartV)
+        middleView.sendSubviewToBack(cartV)
+        cartV.fillSuperview()
+        
+        
+    }
+
+    var cardModelStacks = [CardViewModel]()
     
     fileprivate func setUpCards(){
         
 
         cardModelStacks.forEach{
-            let cartV = CartView()
+            let cartV = CartView(frame: .zero)
             cartV.cardsContent = $0
             middleView.addSubview(cartV)
+            middleView.sendSubviewToBack(cartV)
             cartV.fillSuperview()
         }
         
@@ -77,11 +104,21 @@ class HomeController: UIViewController {
         overallStackView.bringSubviewToFront(middleView)
         
         topStackView.leftBtn.addTarget(self, action: #selector(tapSettingProfile), for: .touchUpInside)
+        bottomStackView.refreshBtn.addTarget(self, action: #selector(tapRefresh), for: .touchUpInside)
+    }
+    
+    @objc func tapRefresh(){
+        
+        retriveCardInfoFromFirebase()
+        
     }
     
     @objc func tapSettingProfile(){
         
-        self.present(SettingProfileViewController(),animated: true)
+        let settingProfiletvc = UINavigationController(rootViewController: SettingProfileTableViewController())
+        
+        
+        self.present(settingProfiletvc,animated: true)
         
     }
 

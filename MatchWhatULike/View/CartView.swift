@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class CartView: UIView {
 
@@ -15,7 +16,7 @@ class CartView: UIView {
         
         didSet{
             
-            image.image = UIImage(named: cardsContent.bgImages.first ?? "")
+            image.sd_setImage(with: URL(string: cardsContent.bgImages.first ?? ""), completed: nil)
             infoLabel.attributedText = cardsContent.wordAttribute
             infoLabel.textAlignment = cardsContent.alignment
             setUpBarStackView()
@@ -89,8 +90,8 @@ class CartView: UIView {
         
        
         cardsContent.imageObserver = {
-            [unowned self]     (idx,image) in
-            self.image.image = image
+            [unowned self]     (idx,imgUrl) in
+            self.image.sd_setImage(with: URL(string: imgUrl ?? ""), completed: nil)
             self.barStackView.arrangedSubviews.forEach{
                 $0.backgroundColor = self.deselectClw
             }
@@ -194,7 +195,8 @@ class CartView: UIView {
             }) { (_) in
                 self.transform = .identity
                 if dismissCard{
-                    self.superview!.sendSubviewToBack(self)
+//                    self.superview!.sendSubviewToBack(self)
+                    self.removeFromSuperview()
 
                 }
 

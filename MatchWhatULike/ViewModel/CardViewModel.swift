@@ -28,16 +28,15 @@ class CardViewModel{
     fileprivate var indexStatus = 0{
         didSet{
             
-            let img = UIImage(named: bgImages[indexStatus])
-            
-            imageObserver?(indexStatus,img)
+            let imgUrl = bgImages[indexStatus]
+            imageObserver?(indexStatus,imgUrl)
             
         }
         
         
     }
     
-    var imageObserver : ((Int,UIImage?)->())?
+    var imageObserver : ((Int,String?)->())?
     
     func advancedToNextPic(){
         self.indexStatus = min(indexStatus + 1 , bgImages.count - 1)
