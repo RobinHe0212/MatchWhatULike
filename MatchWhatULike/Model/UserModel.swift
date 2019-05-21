@@ -22,13 +22,16 @@ struct UserModel : TransferToCardViewModel{
     var userAge : String?
     var userProfession : String?
     var imageUrl1 : String?
+    var imageUrl2 : String?
+    var imageUrl3 : String?
     var uid : String?
     init(dictionary : [String:Any]){
         let userName = dictionary["fullname"] as? String
         let userAge = dictionary["age"] as? String
         let userProfession = dictionary["profession"] as? String
-         self.imageUrl1 = dictionary["imageUrl1"] as? String
-        self.userImages = [imageUrl1 ?? ""]
+        self.imageUrl1 = dictionary["imageUrl1"] as? String
+        self.imageUrl2 = dictionary["imageUrl2"] as? String
+        self.imageUrl3 = dictionary["imageUrl3"] as? String
         self.userAge = userAge
         self.userName = userName
         self.userProfession = userProfession
@@ -42,8 +45,23 @@ struct UserModel : TransferToCardViewModel{
         attribute.append(NSMutableAttributedString(string: " \(userAge ?? "N\\A")", attributes: [NSMutableAttributedString.Key.font : UIFont.systemFont(ofSize: 15)]))
         attribute.append(NSMutableAttributedString(string: "\n\(userProfession ?? "Not Available")", attributes: [NSMutableAttributedString.Key.font : UIFont.systemFont(ofSize: 15)]))
         
-        
-        return CardViewModel(alignment: .left, wordAttribute: attribute, bgImages: [imageUrl1 ?? ""] )
+        var imageStrSet = [String]()
+        if let img = imageUrl1 {
+            if img != ""{
+                imageStrSet.append(img)
+            }
+        }
+        if let img = imageUrl2 {
+            if img != ""{
+                imageStrSet.append(img)
+                
+            }        }
+        if let img = imageUrl3 {
+            if img != ""{
+                imageStrSet.append(img)
+                
+            }        }
+        return CardViewModel(alignment: .left, wordAttribute: attribute, bgImages: imageStrSet )
     }
     
   
