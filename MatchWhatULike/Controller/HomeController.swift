@@ -35,6 +35,7 @@ class HomeController: UIViewController {
         progressHud.textLabel.text = "Fetching user"
         progressHud.show(in: self.view, animated: true)
         
+        print("lastUserUid is \(lastUserUid)")
        let query =  Firestore.firestore().collection("users").order(by: "uid").start(after: [lastUserUid ?? ""]).limit(to: 2)
         
         query.getDocuments { (snapShot, err) in
@@ -47,7 +48,7 @@ class HomeController: UIViewController {
             snapShot?.documents.forEach({ (snapShot) in
                 let dta = snapShot.data()
                 let user = UserModel(dictionary: dta)
-                print(snapShot.data())
+                print("after refreshing data \(snapShot.data())")
                 self.lastUserUid = user.uid
                 self.cardModelStacks.append(user.toCardViewModel())
                 self.setUpPaginationCards(user: user)

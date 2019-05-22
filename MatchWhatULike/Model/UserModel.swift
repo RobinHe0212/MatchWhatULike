@@ -21,6 +21,8 @@ struct UserModel : TransferToCardViewModel{
     var userName : String?
     var userAge : String?
     var userProfession : String?
+    var minSeekingAge : Int?
+    var maxSeekingAge : Int?
     var imageUrl1 : String?
     var imageUrl2 : String?
     var imageUrl3 : String?
@@ -36,6 +38,8 @@ struct UserModel : TransferToCardViewModel{
         self.userName = userName
         self.userProfession = userProfession
         self.uid = dictionary["uid"] as? String
+        self.minSeekingAge = dictionary["minSeekingAge"] as? Int
+        self.maxSeekingAge = dictionary["maxSeekingAge"] as? Int
     }
     
     func toCardViewModel() -> CardViewModel {

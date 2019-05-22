@@ -16,6 +16,7 @@
 		0F6CD2A32289E9070095DBE0 /* TopStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6CD2A22289E9070095DBE0 /* TopStackView.swift */; };
 		0F6CD2A52289EB410095DBE0 /* BottomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6CD2A42289EB410095DBE0 /* BottomStackView.swift */; };
 		0F6CD2A82289F1590095DBE0 /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6CD2A72289F1590095DBE0 /* CartView.swift */; };
+		0F8E636C2295D197008A1BA0 /* AgeRangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8E636B2295D197008A1BA0 /* AgeRangeCell.swift */; };
 		0FB758D8228B154A00AE9862 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB758D7228B154A00AE9862 /* UserModel.swift */; };
 		0FB758DB228B15A500AE9862 /* AdsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB758DA228B15A500AE9862 /* AdsModel.swift */; };
 		0FB758DE228B165700AE9862 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB758DD228B165700AE9862 /* CardViewModel.swift */; };
@@ -41,6 +42,7 @@
 		0F6CD2A22289E9070095DBE0 /* TopStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopStackView.swift; sourceTree = "<group>"; };
 		0F6CD2A42289EB410095DBE0 /* BottomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomStackView.swift; sourceTree = "<group>"; };
 		0F6CD2A72289F1590095DBE0 /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
+		0F8E636B2295D197008A1BA0 /* AgeRangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeRangeCell.swift; sourceTree = "<group>"; };
 		0FB758D7228B154A00AE9862 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		0FB758DA228B15A500AE9862 /* AdsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsModel.swift; sourceTree = "<group>"; };
 		0FB758DD228B165700AE9862 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				0FB758EC22934C2500AE9862 /* SettingTableViewCell.swift */,
+				0F8E636B2295D197008A1BA0 /* AgeRangeCell.swift */,
 			);
 			path = SettingTableViewCell;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				0FB758DB228B15A500AE9862 /* AdsModel.swift in Sources */,
 				0F6CD2A52289EB410095DBE0 /* BottomStackView.swift in Sources */,
 				0FB758ED22934C2500AE9862 /* SettingTableViewCell.swift in Sources */,
+				0F8E636C2295D197008A1BA0 /* AgeRangeCell.swift in Sources */,
 				0FB758EA229323AB00AE9862 /* SettingProfileTableViewController.swift in Sources */,
 				0F6CD2902289E7250095DBE0 /* HomeController.swift in Sources */,
 				0F6CD2A32289E9070095DBE0 /* TopStackView.swift in Sources */,
