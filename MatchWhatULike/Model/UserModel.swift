@@ -19,7 +19,7 @@ struct UserModel : TransferToCardViewModel{
     
     var userImages : [String]?
     var userName : String?
-    var userAge : String?
+    var userAge : Int?
     var userProfession : String?
     var minSeekingAge : Int?
     var maxSeekingAge : Int?
@@ -29,7 +29,7 @@ struct UserModel : TransferToCardViewModel{
     var uid : String?
     init(dictionary : [String:Any]){
         let userName = dictionary["fullname"] as? String
-        let userAge = dictionary["age"] as? String
+        let userAge = dictionary["age"] as? Int
         let userProfession = dictionary["profession"] as? String
         self.imageUrl1 = dictionary["imageUrl1"] as? String
         self.imageUrl2 = dictionary["imageUrl2"] as? String
@@ -46,7 +46,7 @@ struct UserModel : TransferToCardViewModel{
         
         let attribute =  NSMutableAttributedString(string: userName ?? "", attributes: [NSMutableAttributedString.Key.font : UIFont.systemFont(ofSize: 32, weight: .heavy)])
         
-        attribute.append(NSMutableAttributedString(string: " \(userAge ?? "N\\A")", attributes: [NSMutableAttributedString.Key.font : UIFont.systemFont(ofSize: 15)]))
+        attribute.append(NSMutableAttributedString(string: " \(userAge ?? -1)", attributes: [NSMutableAttributedString.Key.font : UIFont.systemFont(ofSize: 15)]))
         attribute.append(NSMutableAttributedString(string: "\n\(userProfession ?? "Not Available")", attributes: [NSMutableAttributedString.Key.font : UIFont.systemFont(ofSize: 15)]))
         
         var imageStrSet = [String]()

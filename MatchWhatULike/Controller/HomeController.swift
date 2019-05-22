@@ -10,8 +10,8 @@ import UIKit
 import Firebase
 import JGProgressHUD
 
-class HomeController: UIViewController {
-
+class HomeController: UIViewController, SettingRefreshHomeControllerDelegate {
+   
    
     
     override func viewDidLoad() {
@@ -19,10 +19,28 @@ class HomeController: UIViewController {
         self.view.backgroundColor = .white
         setUpStackViews()
         setUpCards()
-        retriveCardInfoFromFirebase()
+        fetchCurrentUserInfo()
 
     }
     
+    var user : UserModel?
+    fileprivate func fetchCurrentUserInfo(){
+        let uid = Auth.auth().currentUser!.uid
+        Firestore.firestore().collection("users").document(uid).getDocument { (snap, err) in
+            if err != nil{
+                print("error is ",err)
+                return
+            }
+            if let dta = snap?.data() {
+                 self.user = UserModel(dictionary: dta)
+                self.retriveCardInfoFromFirebase()
+
+            }
+            
+        }
+        
+    }
+
     let topStackView = TopStackView(frame: .zero)
     let bottomStackView = BottomStackView(frame: .zero)
     let middleView = UIView()
@@ -34,9 +52,13 @@ class HomeController: UIViewController {
         
         progressHud.textLabel.text = "Fetching user"
         progressHud.show(in: self.view, animated: true)
-        
-        print("lastUserUid is \(lastUserUid)")
-       let query =  Firestore.firestore().collection("users").order(by: "uid").start(after: [lastUserUid ?? ""]).limit(to: 2)
+        guard let minAge = self.user?.minSeekingAge else {return}
+        guard let maxAge = self.user?.maxSeekingAge else {return}
+
+        print("min is \(minAge)")
+        print("max is \(maxAge)")
+       
+       let query =  Firestore.firestore().collection("users").whereField("age", isGreaterThanOrEqualTo: minAge).whereField("age", isLessThanOrEqualTo: maxAge)
         
         query.getDocuments { (snapShot, err) in
             if err != nil {
@@ -116,12 +138,20 @@ class HomeController: UIViewController {
     
     @objc func tapSettingProfile(){
         
-        let settingProfiletvc = UINavigationController(rootViewController: SettingProfileTableViewController())
+        let settingVC = SettingProfileTableViewController()
+        settingVC.delegate = self
+        let settingProfiletvc = UINavigationController(rootViewController: settingVC)
         
         
         self.present(settingProfiletvc,animated: true)
         
     }
+    
+    
+    func refreshHomeController() {
+        fetchCurrentUserInfo()
+    }
+    
 
 
 }
