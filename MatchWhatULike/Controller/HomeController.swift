@@ -10,7 +10,8 @@ import UIKit
 import Firebase
 import JGProgressHUD
 
-class HomeController: UIViewController, SettingRefreshHomeControllerDelegate {
+class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,FinishLoginInDelegate {
+   
    
    
     
@@ -23,9 +24,22 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate {
 
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if Auth.auth().currentUser == nil {
+            let loginVC = LoginViewController()
+            loginVC.delegate = self
+            
+            present(UINavigationController(rootViewController: loginVC),animated: true)
+
+        }
+    }
+    
+    
     var user : UserModel?
     fileprivate func fetchCurrentUserInfo(){
-        let uid = Auth.auth().currentUser!.uid
+        guard  let uid = Auth.auth().currentUser?.uid else {return}
         Firestore.firestore().collection("users").document(uid).getDocument { (snap, err) in
             if err != nil{
                 print("error is ",err)
@@ -152,7 +166,10 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate {
         fetchCurrentUserInfo()
     }
     
-
+    func finishLogin() {
+        fetchCurrentUserInfo()
+    }
+    
 
 }
 

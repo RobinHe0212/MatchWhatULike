@@ -152,6 +152,25 @@ class RegisterViewController: UIViewController {
         
     }()
     
+    lazy var backToLogin : UILabel = {
+        let label = UILabel()
+        label.text = "Back to Login"
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(clickLogin)))
+        return label
+        
+    }()
+    
+    @objc func clickLogin(){
+        
+        navigationController?.popViewController(animated: true)
+        
+    }
+    
+    
     let registerHud : JGProgressHUD = {
         let registerHud = JGProgressHUD(style: .dark)
         registerHud.textLabel.text = "Register"
@@ -172,7 +191,7 @@ class RegisterViewController: UIViewController {
             print("finish uploading")
         }
         
-        
+       
         
         
     }
@@ -258,6 +277,9 @@ class RegisterViewController: UIViewController {
         self.view.addSubview(overallStackView)
         overallStackView.anchor(top: nil, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 30, bottom: 0, right: 30))
         overallStackView.centerYInSuperview()
+        
+        self.view.addSubview(backToLogin)
+        backToLogin.anchor(top: nil, leading: self.view.leadingAnchor, bottom: self.view.safeAreaLayoutGuide.bottomAnchor, trailing: self.view.trailingAnchor)
     }
     
     fileprivate func setUpTapGesture() {
