@@ -22,7 +22,7 @@ class LoginViewModel{
             if err != nil {
                 completion(err)
             }
-            
+
             print("successfully sign in")
             self.isLogin.value = false
 

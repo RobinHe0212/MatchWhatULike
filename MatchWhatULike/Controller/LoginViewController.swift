@@ -123,12 +123,14 @@ class LoginViewController: UIViewController {
     @objc func touchLoginIn(){
         
         loginViewModel.handleLogin { (err) in
+            self.loginProgressHud.dismiss(animated: true)
             if err != nil {
                 print("error is ",err)
                 return
             }
-            self.dismiss(animated: true, completion: nil)
-            
+            self.dismiss(animated: true, completion: {
+                self.delegate?.finishLogin()
+            })
         }
         
     }
@@ -188,8 +190,7 @@ class LoginViewController: UIViewController {
                 
             }else {
                 self.loginProgressHud.dismiss(animated: true)
-                self.dismiss(animated: true, completion: nil)
-                self.delegate?.finishLogin()
+                
             }
             
             
