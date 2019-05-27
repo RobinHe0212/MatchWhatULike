@@ -10,8 +10,7 @@ import UIKit
 import Firebase
 import JGProgressHUD
 
-class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,FinishLoginInDelegate {
-   
+class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,FinishLoginInDelegate,MoreInfoPageDelegate {
    
    
     
@@ -72,6 +71,8 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
         print("min is \(minAge)")
         print("max is \(maxAge)")
        
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        
        let query =  Firestore.firestore().collection("users").whereField("age", isGreaterThanOrEqualTo: minAge).whereField("age", isLessThanOrEqualTo: maxAge)
         
         query.getDocuments { (snapShot, err) in
@@ -85,9 +86,14 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
                 let dta = snapShot.data()
                 let user = UserModel(dictionary: dta)
                 print("after refreshing data \(snapShot.data())")
-                self.lastUserUid = user.uid
                 self.cardModelStacks.append(user.toCardViewModel())
-                self.setUpPaginationCards(user: user)
+                if let userId = user.uid {
+                    if userId != uid {
+                        self.setUpPaginationCards(user: user)
+                        
+                    }
+                }
+               
                 
             })
            
@@ -97,6 +103,7 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
     
     fileprivate func setUpPaginationCards(user:UserModel){
         let cartV = CartView(frame: .zero)
+        cartV.delegate = self
         cartV.cardsContent = user.toCardViewModel()
         middleView.addSubview(cartV)
         middleView.sendSubviewToBack(cartV)
@@ -169,6 +176,13 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
     func finishLogin() {
         fetchCurrentUserInfo()
     }
+    func presentMoreInfo(userModel:CardViewModel) {
+        let moreInfoPage = MoreInfoViewController()
+       moreInfoPage.viewModel = userModel
+        present(moreInfoPage,animated: true)
+    }
+    
+    
     
 
 }

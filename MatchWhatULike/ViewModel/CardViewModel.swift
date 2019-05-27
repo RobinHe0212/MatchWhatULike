@@ -34,7 +34,7 @@ class CardViewModel{
         }
         
         
-    }
+    } 
     
     var imageObserver : ((Int,String?)->())?
     

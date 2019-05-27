@@ -25,7 +25,7 @@ class LoginViewModel{
 
             print("successfully sign in")
             self.isLogin.value = false
-
+            completion(nil)
         }
         
     }

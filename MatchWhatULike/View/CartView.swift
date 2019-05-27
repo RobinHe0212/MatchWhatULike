@@ -9,6 +9,10 @@
 import UIKit
 import SDWebImage
 
+protocol MoreInfoPageDelegate {
+    func presentMoreInfo(userModel:CardViewModel)
+}
+
 class CartView: UIView {
 
     
@@ -25,6 +29,8 @@ class CartView: UIView {
         
         
     }
+    
+    var delegate : MoreInfoPageDelegate?
     
     let image : UIImageView = {
         let img = UIImageView()
@@ -43,17 +49,38 @@ class CartView: UIView {
    fileprivate let threshold : CGFloat = 100
 
    
-   
+    let moreInfoButton : UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setImage(#imageLiteral(resourceName: "info").withRenderingMode(.alwaysOriginal), for: .normal)
+        btn.addTarget(self, action: #selector(tapMoreInfo), for: .touchUpInside)
+        return btn
+        
+    }()
+    
+    @objc func tapMoreInfo(){
+        
+        delegate?.presentMoreInfo(userModel:cardsContent)
+        
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpImage()
         setUpGradientLayer()
         setUpInfoLabel()
+        setUpMoreInfoBtn()
         let pan = UIPanGestureRecognizer(target: self, action: #selector(panCard))
         self.addGestureRecognizer(pan)
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapPic)))
     }
+    
+    fileprivate func setUpMoreInfoBtn(){
+        self.addSubview(moreInfoButton)
+        moreInfoButton.anchor(top: nil, leading: nil, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 16, right: 16), size: .init(width: 44, height: 44))
+        
+        
+    }
+    
     
     @objc func tapPic(gesture:UITapGestureRecognizer){
         

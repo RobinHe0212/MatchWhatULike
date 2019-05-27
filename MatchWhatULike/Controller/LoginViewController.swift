@@ -190,7 +190,6 @@ class LoginViewController: UIViewController {
                 
             }else {
                 self.loginProgressHud.dismiss(animated: true)
-                
             }
             
             
