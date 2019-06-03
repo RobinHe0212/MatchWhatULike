@@ -20,8 +20,7 @@ extension RegisterViewController : UINavigationControllerDelegate, UIImagePicker
         
         if let image = info[.originalImage] as? UIImage{
             registerViewModel.bindprofileImage.value = image
-//            registerViewModel.profileImage = image
-            
+            registerViewModel.checkFormValid()
         }
         dismiss(animated: true, completion: nil)
     }
@@ -73,7 +72,7 @@ class RegisterViewController: UIViewController {
         btn.addTarget(self, action: #selector(tapProfileImg), for: .touchUpInside)
         return btn
 
-    }()
+    }() 
     
     @objc func tapProfileImg(){
         

@@ -11,19 +11,21 @@ import SDWebImage
 
 protocol MoreInfoPageDelegate {
     func presentMoreInfo(userModel:CardViewModel)
+    func dismissTopCardView(cardView:CartView)
 }
 
 class CartView: UIView {
 
+    var nextCardView : CartView?
     
     var cardsContent : CardViewModel!{
         
         didSet{
-            
-            image.sd_setImage(with: URL(string: cardsContent.bgImages.first ?? ""), completed: nil)
+            swipeCardView.cardViewModel = cardsContent
+//            image.sd_setImage(with: URL(string: cardsContent.bgImages.first ?? ""), completed: nil)
             infoLabel.attributedText = cardsContent.wordAttribute
             infoLabel.textAlignment = cardsContent.alignment
-            setUpBarStackView()
+//            setUpBarStackView()
          
         }
         
@@ -32,13 +34,15 @@ class CartView: UIView {
     
     var delegate : MoreInfoPageDelegate?
     
-    let image : UIImageView = {
-        let img = UIImageView()
-        img.contentMode = .scaleAspectFill
-        return img
-        
-        
-    }()
+    let swipeCardView = SwipePageViewController(allowSwipe: false)
+    
+//    let image : UIImageView = {
+//        let img = UIImageView()
+//        img.contentMode = .scaleAspectFill
+//        return img
+//
+//
+//    }()
     
     let infoLabel = UILabel()
      let gradientlayer = CAGradientLayer()
@@ -118,7 +122,7 @@ class CartView: UIView {
        
         cardsContent.imageObserver = {
             [unowned self]     (idx,imgUrl) in
-            self.image.sd_setImage(with: URL(string: imgUrl ?? ""), completed: nil)
+//            self.image.sd_setImage(with: URL(string: imgUrl ?? ""), completed: nil)
             self.barStackView.arrangedSubviews.forEach{
                 $0.backgroundColor = self.deselectClw
             }
@@ -133,8 +137,10 @@ class CartView: UIView {
     fileprivate func setUpImage() {
         self.layer.cornerRadius = 12
         self.clipsToBounds = true
-        self.addSubview(image)
-        image.fillSuperview()
+        self.addSubview(swipeCardView.view)
+        swipeCardView.view.fillSuperview()
+//        self.addSubview(image)
+//        image.fillSuperview()
     }
     
     // add shadow in the bottom of the image
@@ -224,6 +230,7 @@ class CartView: UIView {
                 if dismissCard{
 //                    self.superview!.sendSubviewToBack(self)
                     self.removeFromSuperview()
+                    self.delegate?.dismissTopCardView(cardView: self)
 
                 }
 

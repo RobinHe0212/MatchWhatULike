@@ -73,8 +73,16 @@ class RegisterViewModel {
     
     fileprivate func saveUserInfoIntoFireStore(uid:String,imgStr : String?,completion:@escaping ((Error?)->())){
         
-        
-        Firestore.firestore().collection("users").document(uid).setData(["fullname" : name, "uid" : uid, "imageUrl1" : imgStr ?? ""]) { (err) in
+        let docData : [String:Any] = [
+            "fullname" : name,
+            "uid" : uid,
+            "imageUrl1" : imgStr ?? "",
+            "age" : 18,
+            "maxSeekingAge": 50,
+            "minSeekingAge": 18
+            
+        ]
+        Firestore.firestore().collection("users").document(uid).setData(docData) { (err) in
             if err != nil {
                 completion(err)
                 return
@@ -112,7 +120,7 @@ class RegisterViewModel {
     
     func checkFormValid(){
         
-        if name?.isEmpty == false && email?.isEmpty == false && password?.isEmpty == false {
+        if name?.isEmpty == false && email?.isEmpty == false && password?.isEmpty == false && bindprofileImage.value != nil {
             isFormValidObserver?(true)
         }else {
             isFormValidObserver?(false)

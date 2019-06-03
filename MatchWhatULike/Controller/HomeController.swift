@@ -11,6 +11,7 @@ import Firebase
 import JGProgressHUD
 
 class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,FinishLoginInDelegate,MoreInfoPageDelegate {
+    
    
    
     
@@ -61,12 +62,12 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
     var lastUserUid : String?
     let progressHud = JGProgressHUD(style: .dark)
     
-    fileprivate func retriveCardInfoFromFirebase(){
+    fileprivate func  retriveCardInfoFromFirebase(){
         
         progressHud.textLabel.text = "Fetching user"
         progressHud.show(in: self.view, animated: true)
-        guard let minAge = self.user?.minSeekingAge else {return}
-        guard let maxAge = self.user?.maxSeekingAge else {return}
+        let minAge = self.user?.minSeekingAge ?? 18
+        let maxAge = self.user?.maxSeekingAge ?? 50
 
         print("min is \(minAge)")
         print("max is \(maxAge)")
@@ -74,12 +75,15 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
         guard let uid = Auth.auth().currentUser?.uid else {return}
         
        let query =  Firestore.firestore().collection("users").whereField("age", isGreaterThanOrEqualTo: minAge).whereField("age", isLessThanOrEqualTo: maxAge)
-        
+        self.topCardView == nil
         query.getDocuments { (snapShot, err) in
             if err != nil {
                 print("error", err)
                 return
             }
+            
+            // using linkedList
+            var previousCard : CartView?
             
             self.progressHud.dismiss(animated: true)
             snapShot?.documents.forEach({ (snapShot) in
@@ -89,8 +93,13 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
                 self.cardModelStacks.append(user.toCardViewModel())
                 if let userId = user.uid {
                     if userId != uid {
-                        self.setUpPaginationCards(user: user)
-                        
+                      let currentCard =  self.setUpPaginationCards(user: user)
+                       previousCard?.nextCardView = currentCard
+                       previousCard = currentCard
+                      
+                        if self.topCardView == nil{
+                            self.topCardView = currentCard
+                        }
                     }
                 }
                
@@ -101,7 +110,54 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
   
     }
     
-    fileprivate func setUpPaginationCards(user:UserModel){
+    @objc func tapLike(){
+        
+
+       swipeFunction(translation: 600, angle: 15)
+        
+    }
+    
+    
+    fileprivate func swipeFunction(translation:CGFloat,angle:CGFloat){
+        let animationDuration = 0.5
+        
+        let translationAnimation = CABasicAnimation(keyPath: "position.x")
+        translationAnimation.toValue = translation
+        translationAnimation.duration = animationDuration
+        translationAnimation.fillMode = .forwards
+        // slow in the beginning ,then accelerate
+        translationAnimation.timingFunction = CAMediaTimingFunction(name: .easeOut)
+        translationAnimation.isRemovedOnCompletion = false
+        
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotationAnimation.toValue = angle * CGFloat.pi / 180
+        rotationAnimation.duration = animationDuration
+        
+        let cardView = self.topCardView
+        topCardView = cardView?.nextCardView
+        
+        CATransaction.setCompletionBlock {
+            cardView?.removeFromSuperview()
+        }
+        
+        
+        cardView?.layer.add(translationAnimation, forKey: "translation")
+        cardView?.layer.add(rotationAnimation, forKey: "rotation")
+        
+        CATransaction.commit()
+        
+    }
+    
+    func dismissTopCardView(cardView: CartView) {
+        topCardView?.removeFromSuperview()
+        topCardView = topCardView?.nextCardView
+    }
+    
+    
+    
+    var topCardView : CartView?
+    
+    fileprivate func setUpPaginationCards(user:UserModel) -> CartView{
         let cartV = CartView(frame: .zero)
         cartV.delegate = self
         cartV.cardsContent = user.toCardViewModel()
@@ -109,7 +165,7 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
         middleView.sendSubviewToBack(cartV)
         cartV.fillSuperview()
         
-        
+        return cartV
     }
 
     var cardModelStacks = [CardViewModel]()
@@ -149,11 +205,21 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
         
         topStackView.leftBtn.addTarget(self, action: #selector(tapSettingProfile), for: .touchUpInside)
         bottomStackView.refreshBtn.addTarget(self, action: #selector(tapRefresh), for: .touchUpInside)
+        bottomStackView.likeBtn.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
+        bottomStackView.dismissBtn.addTarget(self, action: #selector(tapDislike), for: .touchUpInside)
+    }
+    
+    @objc func tapDislike(){
+        
+        swipeFunction(translation: -600, angle: -15)
+        
     }
     
     @objc func tapRefresh(){
-        
-        retriveCardInfoFromFirebase()
+        if topCardView == nil {
+            retriveCardInfoFromFirebase()
+
+        }
         
     }
     
