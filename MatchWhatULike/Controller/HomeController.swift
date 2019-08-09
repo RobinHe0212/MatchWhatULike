@@ -17,6 +17,7 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = true
         self.view.backgroundColor = .white
         setUpStackViews()
         setUpCards()
@@ -38,6 +39,7 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
     
     
     var user : UserModel?
+    var matchesUser = [String:UserModel]()
     fileprivate func fetchCurrentUserInfo(){
         guard  let uid = Auth.auth().currentUser?.uid else {return}
         Firestore.firestore().collection("users").document(uid).getDocument { (snap, err) in
@@ -75,7 +77,7 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
         guard let uid = Auth.auth().currentUser?.uid else {return}
         
        let query =  Firestore.firestore().collection("users").whereField("age", isGreaterThanOrEqualTo: minAge).whereField("age", isLessThanOrEqualTo: maxAge)
-        self.topCardView == nil
+        self.topCardView = nil
         query.getDocuments { (snapShot, err) in
             if err != nil {
                 print("error", err)
@@ -89,6 +91,8 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
             snapShot?.documents.forEach({ (snapShot) in
                 let dta = snapShot.data()
                 let user = UserModel(dictionary: dta)
+                self.matchesUser[user.uid!] = user
+                
                 print("after refreshing data \(snapShot.data())")
                 self.cardModelStacks.append(user.toCardViewModel())
                 if let userId = user.uid {
@@ -112,11 +116,82 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
     
     @objc func tapLike(){
         
-
+        swipeToSaveFirebase(didLike: 1)
        swipeFunction(translation: 600, angle: 15)
+     
+        
+        // when back to the US ,remember to refactor the codes in the swipeToSaveFirebase function
+        let matchView = MatchView()
+        matchView.cardUID = "WeWrq6DDfmasQj0M2gSgucWzKID3"
+        matchView.currentUserModel = user
+        view.addSubview(matchView)
+        matchView.fillSuperview()
         
     }
     
+    
+    
+    fileprivate func swipeToSaveFirebase(didLike:Int){
+        guard let uid = Auth.auth().currentUser?.uid else{return}
+        guard let cardV = topCardView?.cardsContent else{return}
+        let document = [cardV.uid : didLike]
+        Firestore.firestore().collection("swipe").document(uid).getDocument { (snap, err) in
+            if let err = err{
+                print("cannot save to firebase")
+                return
+            }
+            if snap?.exists == true{
+                Firestore.firestore().collection("swipe").document(uid).updateData(document)
+                self.checkIfMatchExist(cardUID: cardV.uid)
+                
+            }else {
+                Firestore.firestore().collection("swipe").document(uid).setData(document) { (err) in
+                    if let err = err {
+                        print("cannot save data in database")
+                        return
+                    }
+                    print("save successfully")
+                    self.checkIfMatchExist(cardUID: cardV.uid)
+
+                }
+            }
+        }
+        
+       
+        
+        
+    }
+    
+    fileprivate func checkIfMatchExist(cardUID : String){
+        Firestore.firestore().collection("swipe").document(cardUID).getDocument { (snap, err) in
+            if let err = err {
+                print("Error is", err)
+                return
+            }
+            guard let data = snap?.data() else{return}
+            guard let currentId = Auth.auth().currentUser?.uid else {return}
+            let signal = data[currentId] as? Int == 1
+            if signal {
+                print("found a match")
+                // save matching user and current user in match_messages firebase
+               
+                guard let detailMatchesUser = self.matchesUser[cardUID] else{return}
+                let documentData = ["name": detailMatchesUser.userName ?? "","profileImageUrl":detailMatchesUser.imageUrl1 ?? "","uid":detailMatchesUser.uid ?? ""]
+            Firestore.firestore().collection("match_messages").document(currentId).collection("matches").document(cardUID).setData(documentData, completion: { (err) in
+                    if let err = err {
+                        print("cannot save firebase, err is",err)
+                        return
+                    }
+                })
+                
+                
+                let hud = JGProgressHUD(style: .dark)
+                hud.textLabel.text = "Found a Match!"
+                hud.show(in: self.view, animated: true)
+                hud.dismiss(afterDelay: 3)
+            }
+        }
+    }
     
     fileprivate func swipeFunction(translation:CGFloat,angle:CGFloat){
         let animationDuration = 0.5
@@ -204,22 +279,32 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
         overallStackView.bringSubviewToFront(middleView)
         
         topStackView.leftBtn.addTarget(self, action: #selector(tapSettingProfile), for: .touchUpInside)
+        topStackView.rightBtn.addTarget(self, action: #selector(tapMessage), for: .touchUpInside)
         bottomStackView.refreshBtn.addTarget(self, action: #selector(tapRefresh), for: .touchUpInside)
         bottomStackView.likeBtn.addTarget(self, action: #selector(tapLike), for: .touchUpInside)
         bottomStackView.dismissBtn.addTarget(self, action: #selector(tapDislike), for: .touchUpInside)
     }
     
-    @objc func tapDislike(){
+    @objc func tapMessage(){
+        let messageController = MessagesFeedController()
+        navigationController?.pushViewController(messageController, animated: true)
         
+    }
+    
+    @objc func tapDislike(){
+        swipeToSaveFirebase(didLike: 0)
+
         swipeFunction(translation: -600, angle: -15)
         
     }
     
     @objc func tapRefresh(){
-        if topCardView == nil {
+        middleView.subviews.forEach{$0.removeFromSuperview()}
+
+//        if topCardView == nil {
             retriveCardInfoFromFirebase()
 
-        }
+//        }
         
     }
     

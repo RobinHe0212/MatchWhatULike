@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F3616BB22F43544008858F8 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3616BA22F43544008858F8 /* MatchView.swift */; };
+		0F3616BD22F44C5A008858F8 /* SendChatBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3616BC22F44C5A008858F8 /* SendChatBtn.swift */; };
+		0F3616BF22F44EB5008858F8 /* KeepSwipeBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3616BE22F44EB5008858F8 /* KeepSwipeBtn.swift */; };
 		0F6CD28E2289E7250095DBE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6CD28D2289E7250095DBE0 /* AppDelegate.swift */; };
 		0F6CD2902289E7250095DBE0 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6CD28F2289E7250095DBE0 /* HomeController.swift */; };
 		0F6CD2932289E7250095DBE0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F6CD2912289E7250095DBE0 /* Main.storyboard */; };
@@ -29,6 +32,10 @@
 		0FB758E8228E22CC00AE9862 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB758E7228E22CC00AE9862 /* Bindable.swift */; };
 		0FB758EA229323AB00AE9862 /* SettingProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB758E9229323AB00AE9862 /* SettingProfileTableViewController.swift */; };
 		0FB758ED22934C2500AE9862 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB758EC22934C2500AE9862 /* SettingTableViewCell.swift */; };
+		0FC3742022F987B1004649EE /* MessagesFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC3741F22F987B1004649EE /* MessagesFeedController.swift */; };
+		0FC3742222FBD53E004649EE /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC3742122FBD53E004649EE /* ChatLogController.swift */; };
+		0FC3742422FBDE48004649EE /* MsgNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC3742322FBDE48004649EE /* MsgNavView.swift */; };
+		0FC3742622FC3DB6004649EE /* MsgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC3742522FC3DB6004649EE /* MsgCell.swift */; };
 		0FCD6AE2229C5C1B00AD2645 /* MoreInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCD6AE1229C5C1B00AD2645 /* MoreInfoViewController.swift */; };
 		0FCD6AE4229C762B00AD2645 /* UserDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCD6AE3229C762B00AD2645 /* UserDetailViewModel.swift */; };
 		0FCD6AE6229C8F3300AD2645 /* SwipePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCD6AE5229C8F3300AD2645 /* SwipePageViewController.swift */; };
@@ -36,6 +43,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F3616BA22F43544008858F8 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
+		0F3616BC22F44C5A008858F8 /* SendChatBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendChatBtn.swift; sourceTree = "<group>"; };
+		0F3616BE22F44EB5008858F8 /* KeepSwipeBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepSwipeBtn.swift; sourceTree = "<group>"; };
 		0F6CD28A2289E7250095DBE0 /* MatchWhatULike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatchWhatULike.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F6CD28D2289E7250095DBE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F6CD28F2289E7250095DBE0 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -60,6 +70,10 @@
 		0FB758E7228E22CC00AE9862 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		0FB758E9229323AB00AE9862 /* SettingProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProfileTableViewController.swift; sourceTree = "<group>"; };
 		0FB758EC22934C2500AE9862 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		0FC3741F22F987B1004649EE /* MessagesFeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesFeedController.swift; sourceTree = "<group>"; };
+		0FC3742122FBD53E004649EE /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
+		0FC3742322FBDE48004649EE /* MsgNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgNavView.swift; sourceTree = "<group>"; };
+		0FC3742522FC3DB6004649EE /* MsgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgCell.swift; sourceTree = "<group>"; };
 		0FCD6AE1229C5C1B00AD2645 /* MoreInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoViewController.swift; sourceTree = "<group>"; };
 		0FCD6AE3229C762B00AD2645 /* UserDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewModel.swift; sourceTree = "<group>"; };
 		0FCD6AE5229C8F3300AD2645 /* SwipePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipePageViewController.swift; sourceTree = "<group>"; };
@@ -121,6 +135,8 @@
 			children = (
 				0F6CD29F2289E8540095DBE0 /* UIView+Layout.swift */,
 				0FB758E1228CA2F400AE9862 /* PaddingTextField.swift */,
+				0F3616BC22F44C5A008858F8 /* SendChatBtn.swift */,
+				0F3616BE22F44EB5008858F8 /* KeepSwipeBtn.swift */,
 			);
 			path = "Help+Extension";
 			sourceTree = "<group>";
@@ -132,6 +148,9 @@
 				0F6CD2A22289E9070095DBE0 /* TopStackView.swift */,
 				0F6CD2A42289EB410095DBE0 /* BottomStackView.swift */,
 				0F6CD2A72289F1590095DBE0 /* CartView.swift */,
+				0F3616BA22F43544008858F8 /* MatchView.swift */,
+				0FC3742322FBDE48004649EE /* MsgNavView.swift */,
+				0FC3742522FC3DB6004649EE /* MsgCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -154,6 +173,8 @@
 				0F8E636D22971F84008A1BA0 /* LoginViewController.swift */,
 				0FCD6AE1229C5C1B00AD2645 /* MoreInfoViewController.swift */,
 				0FCD6AE5229C8F3300AD2645 /* SwipePageViewController.swift */,
+				0FC3741F22F987B1004649EE /* MessagesFeedController.swift */,
+				0FC3742122FBD53E004649EE /* ChatLogController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -341,6 +362,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FC3742022F987B1004649EE /* MessagesFeedController.swift in Sources */,
 				0FB758E8228E22CC00AE9862 /* Bindable.swift in Sources */,
 				0F6CD2A82289F1590095DBE0 /* CartView.swift in Sources */,
 				0FCD6AE4229C762B00AD2645 /* UserDetailViewModel.swift in Sources */,
@@ -351,17 +373,23 @@
 				0F6CD2A52289EB410095DBE0 /* BottomStackView.swift in Sources */,
 				0FB758ED22934C2500AE9862 /* SettingTableViewCell.swift in Sources */,
 				0F8E636C2295D197008A1BA0 /* AgeRangeCell.swift in Sources */,
+				0F3616BB22F43544008858F8 /* MatchView.swift in Sources */,
 				0FCD6AE6229C8F3300AD2645 /* SwipePageViewController.swift in Sources */,
 				0F8E637022972C5D008A1BA0 /* LoginViewModel.swift in Sources */,
 				0FB758EA229323AB00AE9862 /* SettingProfileTableViewController.swift in Sources */,
+				0F3616BF22F44EB5008858F8 /* KeepSwipeBtn.swift in Sources */,
 				0F6CD2902289E7250095DBE0 /* HomeController.swift in Sources */,
 				0F6CD2A32289E9070095DBE0 /* TopStackView.swift in Sources */,
 				0FB758E4228DE8FC00AE9862 /* RegisterViewModel.swift in Sources */,
 				0F6CD28E2289E7250095DBE0 /* AppDelegate.swift in Sources */,
 				0F8E636E22971F84008A1BA0 /* LoginViewController.swift in Sources */,
 				0FB758E0228C9F1C00AE9862 /* RegisterViewController.swift in Sources */,
+				0F3616BD22F44C5A008858F8 /* SendChatBtn.swift in Sources */,
+				0FC3742422FBDE48004649EE /* MsgNavView.swift in Sources */,
 				0F6CD2A02289E8540095DBE0 /* UIView+Layout.swift in Sources */,
+				0FC3742222FBD53E004649EE /* ChatLogController.swift in Sources */,
 				0FB758DE228B165700AE9862 /* CardViewModel.swift in Sources */,
+				0FC3742622FC3DB6004649EE /* MsgCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

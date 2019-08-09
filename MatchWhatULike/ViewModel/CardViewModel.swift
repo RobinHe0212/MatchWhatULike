@@ -14,11 +14,13 @@ class CardViewModel{
     let alignment : NSTextAlignment
     let wordAttribute : NSMutableAttributedString
     let bgImages : [String]
+    let uid : String
     
-    init(alignment : NSTextAlignment,wordAttribute : NSMutableAttributedString,bgImages : [String]){
+    init(alignment : NSTextAlignment,wordAttribute : NSMutableAttributedString,bgImages : [String],uid:String){
         self.alignment = alignment
         self.wordAttribute = wordAttribute
         self.bgImages = bgImages
+        self.uid = uid
         
     }
     

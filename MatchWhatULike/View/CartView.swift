@@ -122,7 +122,6 @@ class CartView: UIView {
        
         cardsContent.imageObserver = {
             [unowned self]     (idx,imgUrl) in
-//            self.image.sd_setImage(with: URL(string: imgUrl ?? ""), completed: nil)
             self.barStackView.arrangedSubviews.forEach{
                 $0.backgroundColor = self.deselectClw
             }
@@ -213,31 +212,21 @@ class CartView: UIView {
         let gestureABS = gesture.translation(in: nil).x
         let direction : CGFloat = gestureABS > 0 ? 1 : -1
         let dismissCard = abs(gestureABS) > threshold
+        guard let homeController = self.delegate as? HomeController else{return}
         
-            UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
-                
-                if dismissCard {
-                   
-                        self.frame = .init(x: 1000*direction, y: 0, width: self.frame.width, height: self.frame.height)
-                
-                }else{
-                    self.transform = .identity
-                    
-                }
-                
-            }) { (_) in
-                self.transform = .identity
-                if dismissCard{
-//                    self.superview!.sendSubviewToBack(self)
-                    self.removeFromSuperview()
-                    self.delegate?.dismissTopCardView(cardView: self)
+        if dismissCard {
+            if direction > 0 {
+                homeController.tapLike()
 
-                }
-
+            }else{
+                homeController.tapDislike()
             }
-       
-        
-       
-        
+        }else{
+            UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
+                self.transform = .identity
+
+            })
+        }
+
     }
 }

@@ -65,7 +65,7 @@ struct UserModel : TransferToCardViewModel{
                 imageStrSet.append(img)
                 
             }        }
-        return CardViewModel(alignment: .left, wordAttribute: attribute, bgImages: imageStrSet )
+        return CardViewModel(alignment: .left, wordAttribute: attribute, bgImages: imageStrSet, uid: uid ?? "" )
     }
     
   

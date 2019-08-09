@@ -20,7 +20,7 @@ struct AdsModel : TransferToCardViewModel{
         let attribute = NSMutableAttributedString(string: adsTitle, attributes: [NSMutableAttributedString.Key.font : UIFont.systemFont(ofSize: 35, weight: .heavy)])
         attribute.append(NSMutableAttributedString(string: "\n\(adsSub)", attributes: [NSMutableAttributedString.Key.font : UIFont.systemFont(ofSize: 25, weight: .regular)]))
         
-        return CardViewModel(alignment: .center, wordAttribute: attribute, bgImages: [adsImage])
+        return CardViewModel(alignment: .center, wordAttribute: attribute, bgImages: [adsImage], uid: "")
     }
     
     
