@@ -30,6 +30,9 @@ struct Match{
 
 class MatchesHorizontalController : UICollectionViewController,UICollectionViewDelegateFlowLayout{
     
+    
+    
+    
      fileprivate let matchId = "matchId"
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,8 +60,8 @@ class MatchesHorizontalController : UICollectionViewController,UICollectionViewD
     fileprivate func fetchMatchingInfo(){
         // dummy codes
         matUsers.append(Match.init(name: "Robin", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
-        matUsers.append(Match.init(name: "Nacy", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
-        matUsers.append(Match.init(name: "Lucas", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
+        matUsers.append(Match.init(name: "Pikachu", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/SettingImage%2FIqaLNURJ6GV5ZQSpgv9h5l7iCHZ2?alt=media&token=f68daf40-88b1-4274-86f6-a2b7d51f31cd",uid: "IqaLNURJ6GV5ZQSpgv9h5l7iCHZ2"))
+        matUsers.append(Match.init(name: "GLASS", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FmfCWjiDo7bMxQyEPcrVpecL7n413?alt=media&token=42154290-1663-4878-b174-7677f93f8b2a", uid: "mfCWjiDo7bMxQyEPcrVpecL7n413"))
         matUsers.append(Match.init(name: "Joe", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
         matUsers.append(Match.init(name: "Jason", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
         
@@ -100,13 +103,13 @@ class MatchesHorizontalController : UICollectionViewController,UICollectionViewD
         return .init(width: 95, height: 120)
     }
 
-//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if let msgVC = self.superclass as? MessagesFeedController{
-//          let  chatVC = ChatLogController(match: matUsers[indexPath.item])
-//            msgVC.navigationController?.pushViewController(chatVC, animated: true)
-//        }
-//
-//    }
+    var rootMatchesController : MessagesFeedController?
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+       
+        rootMatchesController?.didSelectMatchFromHeader(match: matUsers[indexPath.item])
+
+    }
 
 }
 
@@ -165,9 +168,11 @@ class MatchUserCell : UICollectionViewCell{
 
 class MatchesHeader : UICollectionReusableView{
     
+    
+    let horizontalVC = MatchesHorizontalController()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        let horizontalVC = MatchesHorizontalController()
         
         let stackView = UIStackView(arrangedSubviews: [
                 newTextlabel,
@@ -217,7 +222,8 @@ class MessagesFeedController: UICollectionViewController, UICollectionViewDelega
         collectionView.backgroundColor = .white
         setUpNavBar()
         collectionView.contentInset.top = 160
-        collectionView.register(MatchUserCell.self, forCellWithReuseIdentifier: matchId)
+        collectionView.scrollIndicatorInsets.top = 400
+        collectionView.register(RecentMsgCell.self, forCellWithReuseIdentifier: matchId)
         collectionView.register(MatchesHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         fetchMatchingInfo()
     }
@@ -242,7 +248,11 @@ class MessagesFeedController: UICollectionViewController, UICollectionViewDelega
          matUsers.append(Match.init(name: "Mike", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
          matUsers.append(Match.init(name: "Duke", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
 
-
+        recentUser.append(RecentMatchMsg.init(userName: "Username", imgUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", latestMsg: "Some dummy codes about to fetch from firestore"))
+        recentUser.append(RecentMatchMsg.init(userName: "Username", imgUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", latestMsg: "Some dummy codes about to fetch from firestore"))
+        recentUser.append(RecentMatchMsg.init(userName: "Username", imgUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", latestMsg: "Some dummy codes about to fetch from firestore"))
+        recentUser.append(RecentMatchMsg.init(userName: "Username", imgUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", latestMsg: "Some dummy codes about to fetch from firestore"))
+        recentUser.append(RecentMatchMsg.init(userName: "Username", imgUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", latestMsg: "Some dummy codes about to fetch from firestore"))
 
         let currentUid = Auth.auth().currentUser?.uid
         Firestore.firestore().collection("match_messages").document(currentUid!).collection("matches").getDocuments { (snap, err) in
@@ -327,9 +337,16 @@ class MessagesFeedController: UICollectionViewController, UICollectionViewDelega
         navigationController?.popViewController(animated: true)
     }
     
+    func didSelectMatchFromHeader(match:Match){
+        let chatLogVC = ChatLogController(match: match)
+        navigationController?.pushViewController(chatLogVC, animated: true)
+    }
+    //dummy codes
+    var recentUser = [RecentMatchMsg]()
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: matchId, for: indexPath) as! MatchUserCell
-        cell.users = matUsers[indexPath.item]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: matchId, for: indexPath) as! RecentMsgCell
+        cell.recentMatch = recentUser[indexPath.item]
         
         
         return cell
@@ -337,11 +354,11 @@ class MessagesFeedController: UICollectionViewController, UICollectionViewDelega
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return matUsers.count
+        return recentUser.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: 95, height: 120)
+        return .init(width: self.view.frame.width, height: 120)
     }
     
     
@@ -355,16 +372,20 @@ class MessagesFeedController: UICollectionViewController, UICollectionViewDelega
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! MatchesHeader
+        cell.horizontalVC.rootMatchesController = self
         return cell
     }
     
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return .init(width: view.frame.width, height: 200)
+        return .init(width: view.frame.width, height: 220)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 30, left: 20, bottom: 0, right: 0)
+        return .init(top: 10, left: 20, bottom: 16, right: 0)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }
