@@ -36,6 +36,7 @@
 		0FC3742222FBD53E004649EE /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC3742122FBD53E004649EE /* ChatLogController.swift */; };
 		0FC3742422FBDE48004649EE /* MsgNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC3742322FBDE48004649EE /* MsgNavView.swift */; };
 		0FC3742622FC3DB6004649EE /* MsgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC3742522FC3DB6004649EE /* MsgCell.swift */; };
+		0FC3742823054B85004649EE /* RecentMsgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC3742723054B85004649EE /* RecentMsgCell.swift */; };
 		0FCD6AE2229C5C1B00AD2645 /* MoreInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCD6AE1229C5C1B00AD2645 /* MoreInfoViewController.swift */; };
 		0FCD6AE4229C762B00AD2645 /* UserDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCD6AE3229C762B00AD2645 /* UserDetailViewModel.swift */; };
 		0FCD6AE6229C8F3300AD2645 /* SwipePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCD6AE5229C8F3300AD2645 /* SwipePageViewController.swift */; };
@@ -74,6 +75,7 @@
 		0FC3742122FBD53E004649EE /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		0FC3742322FBDE48004649EE /* MsgNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgNavView.swift; sourceTree = "<group>"; };
 		0FC3742522FC3DB6004649EE /* MsgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgCell.swift; sourceTree = "<group>"; };
+		0FC3742723054B85004649EE /* RecentMsgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMsgCell.swift; sourceTree = "<group>"; };
 		0FCD6AE1229C5C1B00AD2645 /* MoreInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoViewController.swift; sourceTree = "<group>"; };
 		0FCD6AE3229C762B00AD2645 /* UserDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewModel.swift; sourceTree = "<group>"; };
 		0FCD6AE5229C8F3300AD2645 /* SwipePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipePageViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				0F3616BA22F43544008858F8 /* MatchView.swift */,
 				0FC3742322FBDE48004649EE /* MsgNavView.swift */,
 				0FC3742522FC3DB6004649EE /* MsgCell.swift */,
+				0FC3742723054B85004649EE /* RecentMsgCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FC3742823054B85004649EE /* RecentMsgCell.swift in Sources */,
 				0FC3742022F987B1004649EE /* MessagesFeedController.swift in Sources */,
 				0FB758E8228E22CC00AE9862 /* Bindable.swift in Sources */,
 				0F6CD2A82289F1590095DBE0 /* CartView.swift in Sources */,
