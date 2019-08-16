@@ -61,7 +61,7 @@ class MatchesHorizontalController : UICollectionViewController,UICollectionViewD
         // dummy codes
         matUsers.append(Match.init(name: "Robin", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
         matUsers.append(Match.init(name: "Pikachu", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/SettingImage%2FIqaLNURJ6GV5ZQSpgv9h5l7iCHZ2?alt=media&token=f68daf40-88b1-4274-86f6-a2b7d51f31cd",uid: "IqaLNURJ6GV5ZQSpgv9h5l7iCHZ2"))
-        matUsers.append(Match.init(name: "GLASS", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FmfCWjiDo7bMxQyEPcrVpecL7n413?alt=media&token=42154290-1663-4878-b174-7677f93f8b2a", uid: "mfCWjiDo7bMxQyEPcrVpecL7n413"))
+        matUsers.append(Match.init(name: "Grass", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FmfCWjiDo7bMxQyEPcrVpecL7n413?alt=media&token=42154290-1663-4878-b174-7677f93f8b2a", uid: "mfCWjiDo7bMxQyEPcrVpecL7n413"))
         matUsers.append(Match.init(name: "Joe", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
         matUsers.append(Match.init(name: "Jason", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
         
@@ -248,12 +248,9 @@ class MessagesFeedController: UICollectionViewController, UICollectionViewDelega
          matUsers.append(Match.init(name: "Mike", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
          matUsers.append(Match.init(name: "Duke", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
 
-        recentUser.append(RecentMatchMsg.init(userName: "Username", imgUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", latestMsg: "Some dummy codes about to fetch from firestore"))
-        recentUser.append(RecentMatchMsg.init(userName: "Username", imgUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", latestMsg: "Some dummy codes about to fetch from firestore"))
-        recentUser.append(RecentMatchMsg.init(userName: "Username", imgUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", latestMsg: "Some dummy codes about to fetch from firestore"))
-        recentUser.append(RecentMatchMsg.init(userName: "Username", imgUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", latestMsg: "Some dummy codes about to fetch from firestore"))
-        recentUser.append(RecentMatchMsg.init(userName: "Username", imgUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", latestMsg: "Some dummy codes about to fetch from firestore"))
-
+        recentUser.append(RecentMatchMsg.init(userName: "Pikachu", imgUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/SettingImage%2FIqaLNURJ6GV5ZQSpgv9h5l7iCHZ2?alt=media&token=f68daf40-88b1-4274-86f6-a2b7d51f31cd", latestMsg: "Wanna hang around somewhere and grab some food?"))
+        recentUser.append(RecentMatchMsg.init(userName: "Grass", imgUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FmfCWjiDo7bMxQyEPcrVpecL7n413?alt=media&token=42154290-1663-4878-b174-7677f93f8b2a", latestMsg: "Yo!What it doooo"))
+       
         let currentUid = Auth.auth().currentUser?.uid
         Firestore.firestore().collection("match_messages").document(currentUid!).collection("matches").getDocuments { (snap, err) in
             if let err = err {
