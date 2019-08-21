@@ -10,9 +10,7 @@ import UIKit
 import Firebase
 import JGProgressHUD
 
-class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,FinishLoginInDelegate,MoreInfoPageDelegate {
-    
-   
+class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,FinishLoginInDelegate,MoreInfoPageDelegate,SendToChatVCDelegate {
    
     
     override func viewDidLoad() {
@@ -110,7 +108,7 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
                 let user = UserModel(dictionary: dta)
                 let ifCurrentUser = user.uid == uid ? true : false
                let isSwiped = self.alreadySwipe.keys.contains(user.uid ?? "")
-                if !ifCurrentUser && !isSwiped{
+//                if !ifCurrentUser && !isSwiped{
                     self.matchesUser[user.uid!] = user
                     self.cardModelStacks.append(user.toCardViewModel())
                     if let userId = user.uid {
@@ -124,7 +122,7 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
                             }
                         }
                     }
-                }
+//                }
             
 //                print("after refreshing data \(snapShot.data())")
                 
@@ -203,6 +201,7 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
                 let matchView = MatchView()
                 matchView.cardUID = cardUID
                 matchView.currentUserModel = self.user
+                matchView.delegate = self
                 self.view.addSubview(matchView)
                 matchView.fillSuperview()
                 
@@ -353,6 +352,15 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
        moreInfoPage.viewModel = userModel
         present(moreInfoPage,animated: true)
     }
+    
+    func sendToChat(cardUid:String) {
+        let model = matchesUser[cardUid]
+        let chatUser = Match(name: model?.userName ?? "", profileImageUrl: model?.imageUrl1 ?? "", uid: model?.uid ?? "")
+        navigationController?.pushViewController(ChatLogController(match: chatUser), animated: true)
+    }
+    
+    
+    
     
     
     
