@@ -119,14 +119,6 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
         swipeToSaveFirebase(didLike: 1)
        swipeFunction(translation: 600, angle: 15)
      
-        
-        // when back to the US ,remember to refactor the codes in the swipeToSaveFirebase function
-        let matchView = MatchView()
-        matchView.cardUID = "WeWrq6DDfmasQj0M2gSgucWzKID3"
-        matchView.currentUserModel = user
-        view.addSubview(matchView)
-        matchView.fillSuperview()
-        
     }
     
     
@@ -185,10 +177,16 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
                 })
                 
                 
-                let hud = JGProgressHUD(style: .dark)
-                hud.textLabel.text = "Found a Match!"
-                hud.show(in: self.view, animated: true)
-                hud.dismiss(afterDelay: 3)
+                let matchView = MatchView()
+                matchView.cardUID = cardUID
+                matchView.currentUserModel = self.user
+                self.view.addSubview(matchView)
+                matchView.fillSuperview()
+                
+//                let hud = JGProgressHUD(style: .dark)
+//                hud.textLabel.text = "Found a Match!"
+//                hud.show(in: self.view, animated: true)
+//                hud.dismiss(afterDelay: 3)
             }
         }
     }
