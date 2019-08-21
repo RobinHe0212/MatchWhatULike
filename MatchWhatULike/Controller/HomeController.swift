@@ -49,10 +49,27 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
             }
             if let dta = snap?.data() {
                  self.user = UserModel(dictionary: dta)
-                self.retriveCardInfoFromFirebase()
-
+                
+                self.fetchSwipes()
             }
             
+        }
+        
+    }
+    
+    var alreadySwipe = [String:Int]()
+    
+    fileprivate func fetchSwipes(){
+        let currentId = Auth.auth().currentUser?.uid
+        Firestore.firestore().collection("swipe").document(currentId!).getDocument { (snap, err) in
+            if let err = err{
+                print("error is ", err)
+                return
+            }
+            let dta = snap?.data() as? [String:Int] ?? [:]
+            
+            self.alreadySwipe = dta
+            self.retriveCardInfoFromFirebase()
         }
         
     }
@@ -91,21 +108,27 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
             snapShot?.documents.forEach({ (snapShot) in
                 let dta = snapShot.data()
                 let user = UserModel(dictionary: dta)
-                self.matchesUser[user.uid!] = user
-                
-                print("after refreshing data \(snapShot.data())")
-                self.cardModelStacks.append(user.toCardViewModel())
-                if let userId = user.uid {
-                    if userId != uid {
-                      let currentCard =  self.setUpPaginationCards(user: user)
-                       previousCard?.nextCardView = currentCard
-                       previousCard = currentCard
-                      
-                        if self.topCardView == nil{
-                            self.topCardView = currentCard
+                let ifCurrentUser = user.uid == uid ? true : false
+               let isSwiped = self.alreadySwipe.keys.contains(user.uid ?? "")
+                if !ifCurrentUser && !isSwiped{
+                    self.matchesUser[user.uid!] = user
+                    self.cardModelStacks.append(user.toCardViewModel())
+                    if let userId = user.uid {
+                        if userId != uid {
+                            let currentCard =  self.setUpPaginationCards(user: user)
+                            previousCard?.nextCardView = currentCard
+                            previousCard = currentCard
+                            
+                            if self.topCardView == nil{
+                                self.topCardView = currentCard
+                            }
                         }
                     }
                 }
+            
+//                print("after refreshing data \(snapShot.data())")
+                
+               
                
                 
             })
