@@ -16,7 +16,7 @@ height="768" width="384">
 height="768" width="384">
 <img src="https://github.com/RobinHe0212/MatchWhatULike/blob/master/MatchWhatULike/Assets.xcassets/successmatch.png"
 height="768" width="384">
-<img src="https://github.com/RobinHe0212/MatchWhatULike/blob/master/MatchWhatULike/Assets.xcassets/Simulator%20Screen%20Shot%20-%20iPhone%20X%CA%80%20-%202019-08-13%20at%2010.33.46.png"
+<img src="https://github.com/RobinHe0212/MatchWhatULike/blob/master/MatchWhatULike/Assets.xcassets/messagefixed.png"
 height="768" width="384">
 <img src="https://github.com/RobinHe0212/MatchWhatULike/blob/master/MatchWhatULike/Assets.xcassets/Simulator%20Screen%20Shot%20-%20iPhone%20X%CA%80%20-%202019-08-13%20at%2010.34.03.png"
 height="768" width="384">
