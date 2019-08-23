@@ -14,11 +14,13 @@ struct Match{
     let name : String?
     let profileImageUrl : String?
     let uid : String!
+   
     
-    init(dictionary:[String:String]){
-        self.name = dictionary["name"] ?? ""
-        self.profileImageUrl = dictionary["profileImageUrl"] ?? ""
-        self.uid = dictionary["uid"]
+    init(dictionary:[String:Any]){
+        self.name = dictionary["name"] as? String
+        self.profileImageUrl = dictionary["profileImageUrl"] as? String
+        self.uid = dictionary["uid"] as? String
+       
     }
     init(name:String,profileImageUrl:String,uid:String){
         self.name = name
@@ -58,12 +60,6 @@ class MatchesHorizontalController : UICollectionViewController,UICollectionViewD
     var matUsers = [Match]()
     
     fileprivate func fetchMatchingInfo(){
-        // dummy codes
-        matUsers.append(Match.init(name: "Robin", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
-        matUsers.append(Match.init(name: "Pikachu", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/SettingImage%2FIqaLNURJ6GV5ZQSpgv9h5l7iCHZ2?alt=media&token=f68daf40-88b1-4274-86f6-a2b7d51f31cd",uid: "IqaLNURJ6GV5ZQSpgv9h5l7iCHZ2"))
-        matUsers.append(Match.init(name: "Grass", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FmfCWjiDo7bMxQyEPcrVpecL7n413?alt=media&token=42154290-1663-4878-b174-7677f93f8b2a", uid: "mfCWjiDo7bMxQyEPcrVpecL7n413"))
-        matUsers.append(Match.init(name: "Joe", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
-        matUsers.append(Match.init(name: "Jason", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
         
         
         
@@ -78,10 +74,10 @@ class MatchesHorizontalController : UICollectionViewController,UICollectionViewD
                 self.matUsers.append(Match(dictionary: dta))
                 
             })
-            
-        }
-        self.collectionView.reloadData()
+            self.collectionView.reloadData()
 
+        }
+       
     }
     
     
@@ -240,33 +236,44 @@ class MessagesFeedController: UICollectionViewController, UICollectionViewDelega
     
     var matUsers = [Match]()
     
+    var recentMessageDictionary = [String:RecentMatchMsg]()
+    
     fileprivate func fetchMatchingInfo(){
-        // dummy codes
-        matUsers.append(Match.init(name: "Robin", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
-         matUsers.append(Match.init(name: "Lancy", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
-         matUsers.append(Match.init(name: "Luis", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
-         matUsers.append(Match.init(name: "Mike", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
-         matUsers.append(Match.init(name: "Duke", profileImageUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FkFEW6TKVbPVbfxEeY4aZbLCgqOn1?alt=media&token=ac849a39-9c7b-454a-8157-953b1b0b510d", uid: "kFEW6TKVbPVbfxEeY4aZbLCgqOn1"))
-
-        recentUser.append(RecentMatchMsg.init(userName: "Pikachu", imgUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/SettingImage%2FIqaLNURJ6GV5ZQSpgv9h5l7iCHZ2?alt=media&token=f68daf40-88b1-4274-86f6-a2b7d51f31cd", latestMsg: "Wanna hang around somewhere and grab some food?"))
-        recentUser.append(RecentMatchMsg.init(userName: "Grass", imgUrl: "https://firebasestorage.googleapis.com/v0/b/matchswipe-9bf83.appspot.com/o/profileImage%2FmfCWjiDo7bMxQyEPcrVpecL7n413?alt=media&token=42154290-1663-4878-b174-7677f93f8b2a", latestMsg: "Yo!What it doooo"))
        
-        let currentUid = Auth.auth().currentUser?.uid
-        Firestore.firestore().collection("match_messages").document(currentUid!).collection("matches").getDocuments { (snap, err) in
-            if let err = err {
-                print("cannot fetch data,err is",err)
+        
+        
+        guard  let currentUid = Auth.auth().currentUser?.uid else {return}
+        Firestore.firestore().collection("match_messages").document(currentUid).collection("recentMsg").addSnapshotListener { (snapShot, err) in
+            if let err = err{
+                print("cannot fetch recentMsg, ",err)
                 return
             }
-            snap?.documents.forEach({ (snap) in
-                let dta = snap.data() as! [String:String]
-                self.matUsers.append(Match(dictionary: dta))
-
+            snapShot?.documentChanges.forEach({ (change) in
+                if change.type == .added || change.type == .modified {
+                    let data = change.document.data()
+                   let recentMsg = RecentMatchMsg(dictionary: data)
+                    self.recentMessageDictionary[recentMsg.uid] = recentMsg
+                   
+                }
             })
+            
+           
+           self.resetItems()
 
         }
+
+    }
+    fileprivate func resetItems(){
+        
+        var values = Array(recentMessageDictionary.values)
+        recentUser = values.sorted(by: { (rm1, rm2) -> Bool in
+            return rm1.timestamp.compare(rm2.timestamp) == .orderedDescending
+        })
+        recentUser.forEach { (msg) in
+            self.matUsers.append(Match(name: msg.userName, profileImageUrl: msg.imgUrl, uid: msg.uid))
+        }
         self.collectionView.reloadData()
-
-
+        
     }
     
     fileprivate func setUpNavBar(){
