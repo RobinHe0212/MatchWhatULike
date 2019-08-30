@@ -217,11 +217,12 @@ class MessagesFeedController: UICollectionViewController, UICollectionViewDelega
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         setUpNavBar()
+        fetchMatchingInfo()
         collectionView.contentInset.top = 160
         collectionView.scrollIndicatorInsets.top = 400
         collectionView.register(RecentMsgCell.self, forCellWithReuseIdentifier: matchId)
         collectionView.register(MatchesHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
-        fetchMatchingInfo()
+        
     }
 
     init(){
@@ -248,13 +249,17 @@ class MessagesFeedController: UICollectionViewController, UICollectionViewDelega
                 print("cannot fetch recentMsg, ",err)
                 return
             }
+           
             snapShot?.documentChanges.forEach({ (change) in
                 if change.type == .added || change.type == .modified {
                     let data = change.document.data()
+                   
                    let recentMsg = RecentMatchMsg(dictionary: data)
+                    
                     self.recentMessageDictionary[recentMsg.uid] = recentMsg
                    
                 }
+                
             })
             
            

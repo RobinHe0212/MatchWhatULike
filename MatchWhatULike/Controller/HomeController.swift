@@ -197,6 +197,16 @@ class HomeController: UIViewController, SettingRefreshHomeControllerDelegate,Fin
                     }
                 })
                 
+                let currentUserDta = ["name":self.user?.userName ?? "","profileImageUrl":self.user?.imageUrl1 ?? "","uid":self.user?.uid ?? ""]
+                Firestore.firestore().collection("match_messages").document(cardUID).collection("matches").document(currentId).setData(currentUserDta, completion: { (err) in
+                    if let err = err {
+                        print("cannot save firebase, err is",err)
+                        return
+                    }
+                })
+
+                
+                
                 
                 let matchView = MatchView()
                 matchView.cardUID = cardUID
